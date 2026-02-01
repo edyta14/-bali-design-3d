@@ -291,17 +291,17 @@ renderer.domElement.addEventListener('mouseup',   ()  => { onDragEnd(); });
 
 // Touch (mobile)
 renderer.domElement.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+    if (currentMode === 'fulldetail') e.preventDefault();
     if (e.touches.length === 1) onDragStart(e.touches[0].clientX, e.touches[0].clientY);
 }, { passive: false });
 
 renderer.domElement.addEventListener('touchmove', (e) => {
-    e.preventDefault();
+    if (currentMode === 'fulldetail') e.preventDefault();
     if (e.touches.length === 1) onDragMove(e.touches[0].clientX, e.touches[0].clientY);
 }, { passive: false });
 
 renderer.domElement.addEventListener('touchend', (e) => {
-    e.preventDefault();
+    if (currentMode === 'fulldetail') e.preventDefault();
     onDragEnd();
 }, { passive: false });
 
@@ -371,7 +371,8 @@ function enterDetail(index) {
     const mPos  = model.position;
 
     // Camera più lontana rispetto a prima
-    camTarget.pos.set(mPos.x, mPos.y + 3.5, mPos.z + 9);
+    const initR = window.innerWidth < 600 ? 14 : 9;
+    camTarget.pos.set(mPos.x, mPos.y + 3.5, mPos.z + initR);
     camTarget.lookAt.set(mPos.x, mPos.y + 1, mPos.z);
 
     loadedModels.forEach((item, i) => {
@@ -466,7 +467,8 @@ function backToDetail() {
     // Ripristina posizione camera dal centro del modello
     const model = loadedModels[selectedIndex].model;
     const mPos  = model.position;
-    camTarget.pos.set(mPos.x, mPos.y + 3.5, mPos.z + 9);
+    const backR = window.innerWidth < 600 ? 14 : 9;
+    camTarget.pos.set(mPos.x, mPos.y + 3.5, mPos.z + backR);
     camTarget.lookAt.set(mPos.x, mPos.y + 1, mPos.z);
 
     // UI
@@ -587,10 +589,12 @@ function animate() {
     // ---- POSIZIONE CAMERA per modalità ----
     if (currentMode === 'overview') {
         const angle  = t * 0.065;
-        const radius = 16;
+        const mobile = window.innerWidth < 600;
+        const radius = mobile ? 22 : 16;
+        const height = mobile ? 11 : 8.5;
         camTarget.pos.set(
             Math.sin(angle)  * radius,
-            8.5 + Math.sin(t * 0.18) * 1.2,
+            height + Math.sin(t * 0.18) * 1.2,
             Math.cos(angle)  * radius
         );
         camTarget.lookAt.set(0, 0, 0);
@@ -600,7 +604,7 @@ function animate() {
         const model  = loadedModels[selectedIndex].model;
         const mPos   = model.position;
         const dAngle = t * 0.07;
-        const dR     = 9;
+        const dR     = window.innerWidth < 600 ? 14 : 9;
         camTarget.pos.set(
             mPos.x + Math.sin(dAngle) * dR,
             mPos.y + 3.5,
@@ -612,10 +616,11 @@ function animate() {
         // Rotazione manuale — camera posizionata con coordinate sferiche
         const model  = loadedModels[selectedIndex].model;
         const center = getModelCenter(model);
+        const fR     = window.innerWidth < 600 ? 11 : FULL_RADIUS;
 
-        const x = FULL_RADIUS * Math.sin(orbitPhi) * Math.sin(orbitTheta);
-        const y = FULL_RADIUS * Math.cos(orbitPhi);
-        const z = FULL_RADIUS * Math.sin(orbitPhi) * Math.cos(orbitTheta);
+        const x = fR * Math.sin(orbitPhi) * Math.sin(orbitTheta);
+        const y = fR * Math.cos(orbitPhi);
+        const z = fR * Math.sin(orbitPhi) * Math.cos(orbitTheta);
 
         camTarget.pos.set(center.x + x, center.y + y, center.z + z);
         camTarget.lookAt.copy(center);
