@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Teak Slab Table",
+    "file": "tavolo_1.glb",
+    "size": 13,
+    "position": [-2.5, 0, -1],
+    "detailSize": 8,
+    "rotation": 0.785,
+    "description": "A single slab of rare teak — 10 cm solid — resting on a gold powder-coated steel frame. Every piece is sculpted by nature itself.",
+    "detailDescription": "This table begins as a single piece of aged teak wood — its organic edges untouched, its grain telling decades of growth. At 10 cm of solid thickness, it carries a quiet authority that transforms any room it enters. The base is matte-black steel, finished with a gold powder coating: a subtle tribute to the golden light of Dubai. No two slabs are alike. What you see is what nature carved.",
+    "material": "Teak Wood · Steel · Gold Powder Coat"
+  },
+  {
+    "name": "Rattan Garden Chair",
+    "file": "glb_1039.glb",
+    "size": 4.5,
+    "position": [4.5, 0, 3.5],
+    "detailSize": 2.8,
+    "rotation": -0.5,
+    "description": "Hand-woven by master artisans from sustainable rattan. A sculptural petal backrest meets all-weather durability — crafted for living.",
+    "detailDescription": "Woven entirely by hand from sustainable rattan harvested across Southeast Asia, each chair takes over three days to complete. The petal-shaped backrest is both sculpture and function — its open weave channels air, keeping you cool even in the warmest light. Built to withstand sun and rain without losing its warmth, this chair ages beautifully — deepening in tone with each passing season.",
+    "material": "Natural Rattan · Handwoven · All-Weather"
+  }
+]
